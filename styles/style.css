@@ -1,0 +1,118 @@
+header {
+	background-color: #99ff99;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border: 1px solid gray;
+	border-bottom: none;
+}
+
+.menu {
+	background-color: #99ff99;
+	height: 20px;
+	line-height: 20px;
+	border: 1px solid gray;
+	border-top: none;
+}
+
+.dropbtn {
+    background-color: #99ff99;
+	margin: 0px;
+    padding-left: 10px;
+    font-size: 12px;
+	border: none;
+    border-right: 1px solid white;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #90ee90;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 85px;
+}
+
+.dropdown-content a {
+	font-size: 12px;
+    color: black;
+    padding-left: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover, .dropdown-content a:focus {
+	background-color: #ddd;
+}
+
+.show {
+	display: block;
+}
+
+hr {
+	width: 180px;
+	margin: 5px;
+	margin-left: 0px;
+}
+
+.gameInformation {
+	float: left;
+}
+
+.mineRemainder {
+	margin: 0px;
+	padding-left: 10px;
+	height: 12px;
+	font-size: 12px;
+	float: top;
+}
+
+input {
+	font-size: 12px;
+	border: none;
+}
+
+.newGameBtn {
+	width: 24px;
+	height: 24px;
+	background-image: url("../img/button/newGame.png");
+	margin: 1px;
+}
+
+.timer {
+	margin: 0px;
+	padding-left: 10px;
+	height: 12px;
+	font-size: 12px;
+}
+
+.game {
+	border: 1px solid gray;
+}
+
+.cell {
+	width: 20px;
+	height: 20px;
+	padding: 0px;
+	margin: 0px;
+	float: left;
+}
+
+.mine {
+	background-image: url("../img/mines/mine.png");
+}
+
+.blankCell {
+	background-image: url("../img/board/blank.png");
+}
+
+.flag {
+	background-image: url("../img/board/flag.png");
+}
+
+.question {
+	background-image: url("../img/board/question.png");
+}

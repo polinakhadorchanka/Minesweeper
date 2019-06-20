@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сапер</title>
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
+</head>
+<body>
+	<script type="text/javascript" src="js/jquery.js" defer></script>
+	<script type="text/javascript" src="js/game.js" defer></script>
+	<header>САПЕР</header>
+	<div class="menu">
+		<button onclick="menuOpen()" class="dropbtn">Режим игры</button>
+		<div id="myDropdown" class="dropdown-content">
+			<a href="#1" onclick="easy()">Простой</a>
+			<a href="#2" onclick="medium()">Средний</a>
+			<a href="#3" onclick="hard()">Сложный</a>
+	  </div>
+	</div>
+	
+	<hr>
+	<div>
+		<div id="gameInformation" class="gameInformation">
+			<p id="mineRemainder" class="mineRemainder">осталось мин: </p> 
+			<p id="timer" class="timer">время: <input id="clock" name="clock" size="10" value="00:00.00"></p>
+		</div>
+		<button onclick="startNewGame()" class="newGameBtn"></button>
+	</div>
+	
+	<script defer>
+		function menuOpen() {
+			document.getElementById("myDropdown").classList.toggle("show");
+		}
+		
+		function easy() {
+			$('header').css('width','180px');
+			$('.menu').css('width','180px');
+			$('hr').css('width','180px');
+			$('.game').css('width','180px');
+			$('.game').css('height','180px');
+			$('.gameInformation').css('width','157px');
+			clearFields();
+			NewGame(9,9,10);
+		}
+		
+		function medium() {
+			$('header').css('width','300px');
+			$('.menu').css('width','300px');
+			$('hr').css('width','300px');
+			$('.game').css('width','300px');
+			$('.game').css('height','300px');
+			$('.gameInformation').css('width','277px');
+			clearFields();
+			NewGame(15,15,40);
+		}
+		
+		function hard() {
+			$('header').css('width','600px');
+			$('.menu').css('width','600px');
+			$('hr').css('width','600px');
+			$('.game').css('width','600px');
+			$('.game').css('height','400');
+			$('.gameInformation').css('width','577px');
+			clearFields();
+			NewGame(30,20,99);
+		}
+		
+		function startNewGame() {
+			$('.newGameBtn').css('backgroundImage','url(img/button/newGame.png)');
+			
+			if(document.location.hash == '#3') 
+				hard();
+			else if(document.location.hash == '#2')
+				medium();
+			else easy();
+		}
+	</script>
+	
+	<hr>
+	<div id="divGame" class="game">
+	
+	</div>
+	
+</body>
+</html>
+
