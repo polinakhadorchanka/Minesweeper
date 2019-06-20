@@ -1,5 +1,6 @@
 header {
-	background-color: #99ff99;
+	background-color: #567cd0;
+	background-image: url('../img/bg.png');
 	height: 30px;
 	line-height: 30px;
 	text-align: center;
@@ -8,37 +9,42 @@ header {
 }
 
 .menu {
-	background-color: #99ff99;
+	background-color: #567cd0;
 	height: 20px;
 	line-height: 20px;
 	border: 1px solid gray;
 	border-top: none;
+	border-bottom: none;
 }
 
 .dropbtn {
-    background-color: #99ff99;
-	margin: 0px;
+    background-color: #567cd0;
+	margin: 0;
     padding-left: 10px;
     font-size: 12px;
+	color: #f5f5f5;
 	border: none;
     border-right: 1px solid white;
     cursor: pointer;
 }
 
 .dropbtn:hover, .dropbtn:focus {
-    background-color: #90ee90;
+	color: white;
+    background-color: #5770ca;
+	outline: none;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
-    min-width: 85px;
+    min-width: 83px;
 }
 
 .dropdown-content a {
 	font-size: 12px;
-    color: black;
+	color: white;
+	background-color: #5770ca;
     padding-left: 10px;
     text-decoration: none;
     display: block;
@@ -46,6 +52,7 @@ header {
 
 .dropdown-content a:hover, .dropdown-content a:focus {
 	background-color: #ddd;
+	color: #5770ca;
 }
 
 .show {
@@ -55,7 +62,6 @@ header {
 hr {
 	width: 180px;
 	margin: 5px;
-	margin-left: 0px;
 }
 
 .gameInformation {
@@ -63,41 +69,50 @@ hr {
 }
 
 .mineRemainder {
-	margin: 0px;
+	margin: 0;
+	padding-left: 10px;
+	height: 12px;
+	font-size: 12px;
+}
+
+input {
+	font-size: 11px;
+	border: none;
+}
+
+.newGameBtn {
+	border: 1px solid gray;
+	border-top: none;
+	width: 50px;
+	height: 24px;
+	background-color: #5770ca;
+	background-image: url("../img/button/button.png");
+	margin: 0;
+	outline: none;
+}
+
+.newGameBtn:hover {
+	background-image: url("../img/button/focus.png");
+}
+
+.timer {
+	margin: 0;
 	padding-left: 10px;
 	height: 12px;
 	font-size: 12px;
 	float: top;
 }
 
-input {
-	font-size: 12px;
-	border: none;
-}
-
-.newGameBtn {
-	width: 24px;
-	height: 24px;
-	background-image: url("../img/button/newGame.png");
-	margin: 1px;
-}
-
-.timer {
-	margin: 0px;
-	padding-left: 10px;
-	height: 12px;
-	font-size: 12px;
-}
-
 .game {
+	margin-top: 2px;
 	border: 1px solid gray;
 }
 
 .cell {
 	width: 20px;
 	height: 20px;
-	padding: 0px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
 	float: left;
 }
 
