@@ -188,8 +188,10 @@ function newGame(m,n,countOfMines) {
 
     function fGameOver(cell) {
         init = 0;
+        if (cell !== undefined) {
         document.getElementById(cell.id).style.backgroundImage = 'url(img/mines/minedeath.png)';
         gameOver = true;
+        }
 
         for(let i=0; i<minePositions.length; i++) {
             let mine = document.getElementById(minePositions[i]);
