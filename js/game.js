@@ -204,7 +204,7 @@ function newGame(m,n,countOfMines) {
         for(let i=0; i<elements.length; i++) {
             elements[i].style.backgroundImage = 'url(img/mines/minemisflag.png)';
         }
-        document.querySelector('.newGameBtn').innerHTML = 'loose';
+        document.querySelector('.newGameBtn').innerHTML = 'loss';
     }
 }
 
