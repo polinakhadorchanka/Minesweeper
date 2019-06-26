@@ -1,71 +1,78 @@
 let startDate,
     clocktimer;
-    init = 0;
+init = 0;
 
 function clearFields() {
     init = 0;
     clearTimeout(clocktimer);
     let timer = document.getElementById('clock');
-    timer.value='00:00.00';
+    timer.value = '00:00.00';
 }
 
 function startTIME() {
-    let thisDate = new Date();
-    let t = thisDate.getTime() - startDate.getTime();
-    let ms = t%1000; t-=ms; ms=Math.floor(ms/10);
-    t = Math.floor (t/1000);
-    let s = t%60; t-=s;
-    t = Math.floor (t/60);
-    let m = t%60; t-=m;
-    t = Math.floor (t/60);
+    let thisDate = new Date(),
+        t = thisDate.getTime() - startDate.getTime(),
+        ms = t % 1000,
+        s, m, timer;
 
-    if (m<10) {
-        m='0'+m;
+    t -= ms;
+    ms = Math.floor(ms / 10);
+
+    t = Math.floor(t / 1000);
+    s = t % 60;
+    t -= s;
+    t = Math.floor(t / 60);
+    m = t % 60;
+    t -= m;
+
+    if (m < 10) {
+        m = '0' + m;
     }
 
-    if (s<10) {
-        s='0'+s;
+    if (s < 10) {
+        s = '0' + s;
     }
 
-    if (ms<10) {
-        ms='0'+ms;
+    if (ms < 10) {
+        ms = '0' + ms;
     }
 
-    let timer = document.getElementById('clock');
+    timer = document.getElementById('clock');
 
-    if (init===1) {
+    if (init === 1) {
         timer.value = m + ':' + s + '.' + ms;
     }
 
-    clocktimer = setTimeout(startTIME,10);
+    clocktimer = setTimeout(startTIME, 10);
 }
 
-function newGame(m,n,countOfMines) {
-    document.oncontextmenu = function (){
-        return false
+function newGame(m, n, countOfMines) {
+    document.oncontextmenu = function () {
+        return false;
     };
     clearFields();
 
     let mineCount = countOfMines,
         minePositions = [],
         firstClick = false,
-        gameOver = false;
+        gameOver = false,
+        cells, p;
 
-    document.getElementById("divGame").innerHTML = '';
+    document.getElementById('divGame').innerHTML = '';
 
     for (let i = 0; i < m * n; i++) {
-        let p = document.createElement("p");
+        p = document.createElement('p');
         p.className = 'cell blankCell';
         p.id = Math.floor(i / m) + '_' + i % m;
         p.name = '0';
-        document.getElementById("divGame").append(p);
+        document.getElementById('divGame').append(p);
     }
 
-    document.getElementById("mineRemainder").innerHTML = 'осталось мин: ' + mineCount;
+    document.getElementById('mineRemainder').innerHTML = 'осталось мин: ' + mineCount;
 
-    let cells = document.querySelectorAll('.cell');
-    for(let i=0; i<cells.length; i++) {
-        cells[i].addEventListener('click', function(event) {
+    cells = document.querySelectorAll('.cell');
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].addEventListener('click', function (event) {
             if (!gameOver) {
                 let clickId = cells[i].id;
 
@@ -84,12 +91,13 @@ function newGame(m,n,countOfMines) {
                 if (cells[i].classList.contains('flag')) {
                     cells[i].classList.remove('flag');
                     mineCount++;
-                    document.getElementById("mineRemainder").innerHTML = 'осталось мин: ' + mineCount;
+                    document.getElementById('mineRemainder').innerHTML = 'осталось мин: ' + mineCount;
                 }
 
                 cells[i].classList.remove('question');
                 openCells(cells[i]);
-                if (!isMine(clickId) && document.getElementsByClassName('open').length === (m * n) - countOfMines) {
+                if (!isMine(clickId) &&
+                    document.getElementsByClassName('open').length === (m * n) - countOfMines) {
                     gameOver = true;
                     fGameOver();
                     init = 0;
@@ -99,18 +107,18 @@ function newGame(m,n,countOfMines) {
 
         });
 
-        cells[i].addEventListener('contextmenu', function(event) {
+        cells[i].addEventListener('contextmenu', function (event) {
             if (!gameOver) {
                 if (cells[i].classList.contains('flag') && !cells[i].classList.contains('open')) {
                     mineCount++;
-                    document.getElementById("mineRemainder").innerHTML = 'осталось мин: ' + mineCount;
+                    document.getElementById('mineRemainder').innerHTML = 'осталось мин: ' + mineCount;
                     cells[i].classList.remove('flag');
                     cells[i].classList.add('question');
-                } else if (cells[i].classList.contains('question') && !cells[i].classList.contains('open'))
+                } else if (cells[i].classList.contains('question') && !cells[i].classList.contains('open')) {
                     cells[i].classList.remove('question');
-                else if (!cells[i].classList.contains('open')) {
+                } else if (!cells[i].classList.contains('open')) {
                     mineCount--;
-                    document.getElementById("mineRemainder").innerHTML = 'осталось мин: ' + mineCount;
+                    document.getElementById('mineRemainder').innerHTML = 'осталось мин: ' + mineCount;
                     cells[i].classList.add('flag');
                 }
             }
@@ -119,15 +127,16 @@ function newGame(m,n,countOfMines) {
 
     function isMine(id) {
         let cell = document.getElementById(id);
-        return cell!=null && cell.classList.contains('mine');
+        return cell != null && cell.classList.contains('mine')
     }
 
     function generateMines(firstClick) {
-        for(let i=0; i<countOfMines; i++) {
-            let rand = Math.floor(Math.random() * (m*n-1));
-            minePositions[i] = Math.floor(rand/m) + '_' + rand%m;
+        let rand;
+        for (let i = 0; i < countOfMines; i++) {
+            rand = Math.floor(Math.random() * (m * n - 1));
+            minePositions[i] = Math.floor(rand / m) + '_' + rand % m;
 
-            if(isMine(minePositions[i]) || minePositions[i]===firstClick) {
+            if (isMine(minePositions[i]) || minePositions[i] === firstClick) {
                 i--;
                 continue;
             }
@@ -137,49 +146,50 @@ function newGame(m,n,countOfMines) {
     }
 
     function generateNeighbors() {
-        for(let i=0; i<m*n; i++) {
-            let id = Math.floor(i/m) + '_' + i%m;
-            let cell = document.getElementById(id);
+        for (let i = 0; i < m * n; i++) {
+            let id = Math.floor(i / m) + '_' + i % m,
+                cell = document.getElementById(id),
+                idCellsAround = [((Math.floor(i / m) - 1) + '_' + (i % m - 1)),
+                    ((Math.floor(i / m) - 1) + '_' + (i % m)),
+                    (Math.floor(i / m) - 1) + '_' + (i % m + 1),
+                    (Math.floor(i / m)) + '_' + (i % m + 1),
+                    (Math.floor(i / m) + 1) + '_' + (i % m + 1),
+                    (Math.floor(i / m) + 1) + '_' + (i % m),
+                    (Math.floor(i / m) + 1) + '_' + (i % m - 1),
+                    (Math.floor(i / m)) + '_' + (i % m - 1)];
 
-            let idCellsAround = [((Math.floor(i/m)-1) + '_' + (i%m-1)),
-                ((Math.floor(i/m)-1) + '_' + (i%m)),
-                (Math.floor(i/m)-1) + '_' + (i%m+1),
-                (Math.floor(i/m)) + '_' + (i%m+1),
-                (Math.floor(i/m)+1) + '_' + (i%m+1),
-                (Math.floor(i/m)+1) + '_' + (i%m),
-                (Math.floor(i/m)+1) + '_' + (i%m-1),
-                (Math.floor(i/m)) + '_' + (i%m-1)];
-
-            for(let j=0; j<idCellsAround.length; j++) {
-                if(isMine(idCellsAround[j])) cell.name++;
+            for (let j = 0; j < idCellsAround.length; j++) {
+                if (isMine(idCellsAround[j])) cell.name++;
             }
         }
     }
 
     function openCells(cell) {
-        let id = cell.id;
+        let id = cell.id,
+            arr, cells, el;
+
         cell.classList.add('open');
 
-        if(minePositions.indexOf(id) !== -1) {
+        if (minePositions.indexOf(id) !== -1) {
             fGameOver(cell);
-        }
-        else {
-            document.getElementById(id).style.backgroundImage = 'url(img/open/open'+cell.name+'.png)';
+        } else {
+            document.getElementById(id).style.backgroundImage = 'url(img/open/open' + cell.name + '.png)';
 
-            let arr = id.split('_', 2);
-            let cells = [document.getElementById((+(arr[0])+1) + '_' + arr[1]),
-                document.getElementById((+(arr[0])-1) + '_' + arr[1]),
-                document.getElementById(arr[0] + '_' + (+(arr[1])+1)),
-                document.getElementById(arr[0] + '_' + (+(arr[1])-1)),
-                document.getElementById((+(arr[0])+1) + '_' + (+(arr[1])+1)),
-                document.getElementById((+(arr[0])-1) + '_' + (+(arr[1])-1)),
-                document.getElementById((+(arr[0])-1) + '_' + (+(arr[1])+1)),
-                document.getElementById((+(arr[0])+1) + '_' + (+(arr[1])-1))];
+            arr = id.split('_', 2);
+            cells = [document.getElementById((+(arr[0]) + 1) + '_' + arr[1]),
+                document.getElementById((+(arr[0]) - 1) + '_' + arr[1]),
+                document.getElementById(arr[0] + '_' + (+(arr[1]) + 1)),
+                document.getElementById(arr[0] + '_' + (+(arr[1]) - 1)),
+                document.getElementById((+(arr[0]) + 1) + '_' + (+(arr[1]) + 1)),
+                document.getElementById((+(arr[0]) - 1) + '_' + (+(arr[1]) - 1)),
+                document.getElementById((+(arr[0]) - 1) + '_' + (+(arr[1]) + 1)),
+                document.getElementById((+(arr[0]) + 1) + '_' + (+(arr[1]) - 1))];
 
-            for(let i=0; i<cells.length; i++) {
-                let el = cells[i];
+            for (let i = 0; i < cells.length; i++) {
+                el = cells[i];
 
-                if(cell.name==='0' && el!==null && !el.classList.contains('open') && !el.classList.contains('mine') && !el.classList.contains('flag') && !el.classList.contains('question')) {
+                if (cell.name === '0' && el !== null && !el.classList.contains('open') && !el.classList.contains('mine')
+                    && !el.classList.contains('flag') && !el.classList.contains('question')) {
                     openCells(el);
                 }
             }
@@ -187,21 +197,22 @@ function newGame(m,n,countOfMines) {
     }
 
     function fGameOver(cell) {
+        let mine, elements;
         init = 0;
         if (cell !== undefined) {
-        document.getElementById(cell.id).style.backgroundImage = 'url(img/mines/minedeath.png)';
-        gameOver = true;
+            document.getElementById(cell.id).style.backgroundImage = 'url(img/mines/minedeath.png)';
+            gameOver = true;
         }
 
-        for(let i=0; i<minePositions.length; i++) {
-            let mine = document.getElementById(minePositions[i]);
+        for (let i = 0; i < minePositions.length; i++) {
+            mine = document.getElementById(minePositions[i]);
             mine.classList.remove('blankCell');
             mine.classList.remove('flag');
             mine.classList.remove('question');
         }
 
-        let elements = document.querySelectorAll('.flag');
-        for(let i=0; i<elements.length; i++) {
+        elements = document.querySelectorAll('.flag');
+        for (let i = 0; i < elements.length; i++) {
             elements[i].style.backgroundImage = 'url(img/mines/minemisflag.png)';
         }
         document.querySelector('.newGameBtn').innerHTML = 'loss';
@@ -209,7 +220,7 @@ function newGame(m,n,countOfMines) {
 }
 
 function menuOpen() {
-    document.getElementById("myDropdown").classList.toggle("show");
+    document.getElementById('myDropdown').classList.toggle('show');
 }
 
 function setParameters(width, height, giHeight, m, n, count) {
@@ -228,13 +239,11 @@ function setParameters(width, height, giHeight, m, n, count) {
 function startNewGame() {
     document.querySelector('.newGameBtn').innerHTML = 'new';
 
-    if(document.location.hash === '#3') {
+    if (document.location.hash === '#3') {
         setParameters('600px', '400px', '552px', 30, 20, 99);
-    }
-    else if(document.location.hash === '#2') {
+    } else if (document.location.hash === '#2') {
         setParameters('300px', '300px', '252px', 15, 15, 40);
-    }
-    else {
+    } else {
         setParameters('180px', '180px', '132px', 9, 9, 10);
     }
 }
