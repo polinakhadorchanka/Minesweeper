@@ -1,6 +1,6 @@
 let startDate,
-    clocktimer;
-init = 0;
+    clocktimer,
+    init = 0;
 
 function clearFields() {
     init = 0;
